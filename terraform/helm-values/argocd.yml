@@ -1,0 +1,23 @@
+# Allows you to disable SSL redirection as the Ingress Controller is responsible for redirecting HTTP requests to your domain for things like Lets Encrypt verification
+# To ensure that the domain is not only accessible via HTTPS, which is important in the initial validation phase
+server:  
+  extraArgs:
+  - --insecure
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    annotations:
+     nginx.org/hsts: "false"
+     cert-manager.io/cluster-issuer: issuer
+    hosts:
+    - argocd.youcefderder.co.uk
+    tls:
+    - secretName: argocd-server-tls
+      hosts:
+      - argocd.youcefderder.co.uk
+
+global:
+   domain: argocd.youcefderder.co.uk
+

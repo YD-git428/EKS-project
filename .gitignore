@@ -1,0 +1,7 @@
+TeamAlpha-EKS/
+terraform-ref/
+*lock.hcl
+*.exe
+*.txt
+.terraform/
+terraform/errored.tfstate

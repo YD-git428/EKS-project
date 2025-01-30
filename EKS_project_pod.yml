@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-deploy
+  labels:
+    app: eks-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eks-app
+  template:
+    metadata:
+      labels:
+        app: eks-app
+    spec:
+      containers:
+        - name: eks-app
+          image: youcefd/2048_game:latest
+          command: [ "python", "-m", "http.server", "3000" ]
+          ports:
+            - containerPort: 3000
