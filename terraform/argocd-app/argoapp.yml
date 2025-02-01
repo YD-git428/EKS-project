@@ -11,7 +11,7 @@ metadata:
 spec:
   project: default 
   source:
-    repoURL: https://github.com/YD-git428/EKS-project.git
+    repoURL: https://github.com/YD-git428/EKS-project/terraform.git
     targetRevision: HEAD  
     path: apps 
   destination:
