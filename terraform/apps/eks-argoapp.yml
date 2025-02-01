@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-deploy
+  labels:
+    app: eks-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eks-app
+  template:
+    metadata:
+      labels:
+        app: eks-app
+    spec:
+      containers:
+        - name: eks-app
+          image: 418295709007.dkr.ecr.eu-west-2.amazonaws.com/project_image_yd:latest
+          command: [ "yarn", "start" ]
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+         - name: ecr-registry-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: eks-service
+spec:
+  selector:
+    app: eks-app
+  ports:
+    - port: 3000
+      name: http
+      protocol: TCP
+      targetPort: 3000
+    - name: app-port
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eks-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: issuer
+spec:
+  ingressClassName: nginx
+  rules:
+  - hosts: eks-app.youcefderder.co.uk
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: eks-service
+            port:
+              number: 3000
+tls:
+- hosts: 
+  - eks-app.youcefderder.co.uk
+  secretName: eks-argo-secret
