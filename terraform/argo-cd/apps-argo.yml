@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apps
+  namespace: eks-argocd  
+  labels:
+    name: apps
+  finalizers:
+    # Ensures resources (Pods, Services, etc.) are deleted first before the Application itself
+    - argocd.argoproj.io/resources-finalizer
+spec:
+  project: default  
+  source:
+    repoURL: https://github.com/YD-git428/EKS-project.git
+    targetRevision: HEAD  
+    path: apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps
+  syncPolicy:
+    automated:
+      # Ensures that resources removed from GitHub are also deleted from the cluster
+      prune: true 
+      # Any modifications in the cluster will return back to original state as defined in the source (Github repo)
+      selfHeal: true 
+      # Prevents deletion when GitHub is temporarily empty (avoids downtime)
+      allowEmpty: false 
+    syncOptions:    
+      - CreateNamespace=true  
