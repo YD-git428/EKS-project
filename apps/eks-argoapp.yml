@@ -61,7 +61,7 @@ spec:
             name: eks-service
             port:
               number: 80
-tls:
-- hosts: 
-  - eks-app.youcefderder.co.uk
-  secretName: argocd-server-tls
+  tls:
+  - hosts:
+    - eks-app.youcefderder.co.uk
+    secretName: eks-argo-secret
