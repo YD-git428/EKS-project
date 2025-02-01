@@ -64,4 +64,4 @@ spec:
 tls:
 - hosts: 
   - eks-app.youcefderder.co.uk
-  secretName: eks-argo-secret
+  secretName: argocd-server-tls
