@@ -47,7 +47,6 @@ kind: Ingress
 metadata:
   name: eks-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: issuer
 spec:
   ingressClassName: nginx
