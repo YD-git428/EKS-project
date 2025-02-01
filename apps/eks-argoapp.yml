@@ -52,7 +52,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - hosts: eks-app.youcefderder.co.uk
+  - host: eks-app.youcefderder.co.uk
     http:
       paths:
       - path: /
