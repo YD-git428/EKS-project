@@ -33,7 +33,7 @@ spec:
   selector:
     app: eks-app
   ports:
-    - port: 3000
+    - port: 80
       name: http
       protocol: TCP
       targetPort: 3000
