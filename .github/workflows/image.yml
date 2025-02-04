@@ -49,7 +49,7 @@ jobs:
       - name: Update kube config
         run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
 
-      - name: Apply issuer
+      - name: Apply issuer 
         run: kubectl apply -f terraform/issuer/cluster-issuer.yml
     
       - name: Apply argo-cd app
