@@ -5,3 +5,4 @@ terraform-ref/
 *.txt
 .terraform/
 terraform/errored.tfstate
+terraform.tfstate
