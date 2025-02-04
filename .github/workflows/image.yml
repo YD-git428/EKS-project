@@ -13,12 +13,6 @@ jobs:
 
       steps:
 
-      - name: Install kubectl for AWS EKS
-        run: |
-             curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.32.0/2023-08-07/bin/linux/amd64/kubectl
-             chmod +x ./kubectl
-             sudo mv ./kubectl /usr/local/bin/
-
       - name: checkout code
         uses: actions/checkout@v3
 
@@ -28,6 +22,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install kubectl for AWS EKS
+        run: |
+             curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.32.0/2023-08-07/bin/linux/amd64/kubectl
+             chmod +x ./kubectl
+             sudo mv ./kubectl /usr/local/bin/
 
 
       - name: Log in to AWS ECR
@@ -56,4 +56,3 @@ jobs:
       - name: Apply argo-cd app
         run: kubectl apply -f terraform/argo-cd/apps.yml
 
-        
