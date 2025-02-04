@@ -2,7 +2,12 @@ name: Deploy EKS Infrastructure + Install Helm
 
 
 on:
-  workflow_dispatch:
+    workflow_dispatch:
+      inputs:
+        confirmation:
+          description: 'Type "yes" to confirm deployment'
+          required: true
+          default: 'no'
 
 jobs:
   deploy:
@@ -11,14 +16,6 @@ jobs:
 
 
     steps:
-
-    - name: Install Helm
-      uses: azure/setup-helm@v3
-      with:
-        version: 'latest'
-  
-    - name: Verify Helm installation
-      run: helm version
 
     - name: Checkout code
       uses: actions/checkout@v3

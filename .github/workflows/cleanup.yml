@@ -1,6 +1,11 @@
 name: Destroy deployed infrastructure
 on:
-  workflow_dispatch:
+    workflow_dispatch:
+      inputs:
+        confirmation:
+          description: 'Type "yes" to confirm cleanup'
+          required: true
+          default: 'no'
 
 jobs:
  tf-destroy:
