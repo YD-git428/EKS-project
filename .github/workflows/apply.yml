@@ -63,16 +63,18 @@ jobs:
         terraform apply -auto-approve
         echo "Ignore error - Kubeconfig will be updated under the created cluster" 
       continue-on-error: true
-        
 
-    - name: Update kube config
-      run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
-
+    - name: Allow GitHub Actions IP in EKS
+      run: |
+         GITHUB_IP=$(curl -s https://checkip.amazonaws.com)
+         aws eks update-cluster-config --region ${{ secrets.AWS_REGION }} --name YoucefEKS-project \
+         --resources-vpc-config endpointPublicAccess=true,publicAccessCidrs=["$GITHUB_IP/32",${{ secrets.PUBLIC_IP_CIDR }}]
+   
     - name: Terraform Apply 
       run: |
-        cd terraform
-        terraform apply -auto-approve
-      continue-on-error: false 
+           cd terraform
+           terraform apply -auto-approve
+      continue-on-error: false
 
     - name: Update kube config
       run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
