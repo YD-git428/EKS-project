@@ -1,0 +1,57 @@
+name: Build and push docker image to ECR
+
+
+on:
+ workflow_run:
+      workflows: ["Deploy EKS Infrastructure + Install Helm"]  
+      types:
+          - completed
+jobs:
+   build:
+      runs-on: ubuntu-latest
+
+
+      steps:
+
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure-AWS-credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Set up Kubernetes
+        uses: azure/setup-kubectl@v4
+        with:
+            version: 'latest'
+
+
+      - name: Log in to AWS ECR
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ID }}
+        continue-on-error: false
+
+      - name: Build Docker image
+        run: |
+          docker build -t project_image_yd:latest .
+
+      - name: Tag Docker image
+        run: |
+          docker tag project_image_yd:latest ${{ secrets.AWS_ID }}/project_image_yd:latest
+
+      - name: Push Docker image to AWS ECR
+        run: |
+          docker push ${{ secrets.AWS_ID }}/project_image_yd:latest
+
+      - name: Update kube config
+        run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
+
+      - name: Apply issuer
+        run: kubectl apply -f terraform/issuer/cluster-issuer.yml
+    
+      - name: Apply argo-cd app
+        run: kubectl apply -f terraform/argo-cd/apps.yml
+
