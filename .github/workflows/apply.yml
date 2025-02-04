@@ -2,12 +2,7 @@ name: Deploy EKS Infrastructure + Install Helm
 
 
 on:
-    workflow_dispatch:
-      inputs:
-        confirmation:
-          description: 'Type "yes" to confirm deployment'
-          required: true
-          default: 'no'
+  push:
 
 jobs:
   deploy:
