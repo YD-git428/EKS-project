@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
       inputs:
         confirmation:
-          description: 'Type "yes" to confirm cleanup'
+          description: 'Type "yes" to confirm build'
           required: true
           default: 'no'
 
@@ -25,11 +25,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Install kubectl for AWS EKS
-        run: |
-             curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.32.0/2023-08-07/bin/linux/amd64/kubectl
-             chmod +x ./kubectl
-             sudo mv ./kubectl /usr/local/bin/
+      - name: Set up Kubernetes
+        uses: azure/setup-kubectl@v4
+        with:
+            version: 'latest'
 
 
       - name: Log in to AWS ECR

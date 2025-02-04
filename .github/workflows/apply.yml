@@ -2,7 +2,10 @@ name: Deploy EKS Infrastructure + Install Helm
 
 
 on:
-  push:
+    workflow_run:
+      workflows: ["Build and push docker image to ECR"]  
+      types:
+        - completed
 
 jobs:
   deploy:
@@ -24,6 +27,11 @@ jobs:
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v3.13.3
+      with:
+          version: 'latest'
 
     - name: Terraform Init
       run: |
