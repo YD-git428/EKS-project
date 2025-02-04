@@ -41,9 +41,4 @@ jobs:
         run: |
           docker push ${{ secrets.AWS_ID }}/project_image_yd:latest
 
-      - name: Apply issuer 
-        run: kubectl apply -f terraform/issuer/cluster-issuer.yml
-    
-      - name: Apply argo-cd app
-        run: kubectl apply -f terraform/argo-cd/apps.yml
 

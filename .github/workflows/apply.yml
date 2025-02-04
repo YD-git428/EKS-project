@@ -70,3 +70,9 @@ jobs:
       run: |
         cd terraform
         terraform apply -auto-approve 
+
+    - name: Apply issuer 
+      run: kubectl apply -f terraform/issuer/cluster-issuer.yml
+    
+    - name: Apply argo-cd app
+      run: kubectl apply -f terraform/argo-cd/apps.yml
