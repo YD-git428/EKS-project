@@ -57,19 +57,25 @@ jobs:
         terraform plan -refresh=true -input=false
       continue-on-error: false
 
-    - name: Terraform Apply (EKS Only)
+    - name: Terraform Apply 
       run: |
         cd terraform
-        terraform apply -auto-approve -target=module.eks
-      continue-on-error: false
+        terraform apply -auto-approve
+        echo "Ignore error - Kubeconfig will be updated under the created cluster" 
+      continue-on-error: true
+        
 
     - name: Update kube config
       run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
-    
-    - name: Terraform Apply (The rest of the IaC)
+
+    - name: Terraform Apply 
       run: |
         cd terraform
-        terraform apply -auto-approve 
+        terraform apply -auto-approve
+      continue-on-error: false 
+
+    - name: Update kube config
+      run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
 
     - name: Apply issuer 
       run: kubectl apply -f terraform/issuer/cluster-issuer.yml
