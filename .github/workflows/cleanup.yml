@@ -18,11 +18,11 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
      - name: Uninstall all CRDs
-       uses: |
+       run: |
          chmod +x cleanup.sh
          sh cleanup.sh
        continue-on-error: false
-       
+
      - name: Terraform Init
        working-directory: ./terraform
        run: |
