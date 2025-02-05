@@ -83,4 +83,4 @@ jobs:
       run: kubectl apply -f terraform/issuer/cluster-issuer.yml
     
     - name: Apply argo-cd app
-      run: kubectl apply -f terraform/argo-cd/apps.yml
+      run: kubectl apply -f terraform/argo-cd-application/apps-argo.yml
