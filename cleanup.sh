@@ -1,6 +1,6 @@
 #!/bin/bash
 # Delete Helm releases
-helm uninstall argocd-server --namespace eks-argocd
+helm uninstall argo-cd --namespace eks-argocd
 helm uninstall cert-manager --namespace eks-cert-manager 
 helm uninstall external-dns --namespace eks-external-dns 
 helm uninstall nginx-ingress --namespace ingress-controller

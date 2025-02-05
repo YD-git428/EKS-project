@@ -49,8 +49,8 @@ resource "helm_release" "external_dns" {
 
 }
 
-resource "helm_release" "argocd" {
-  name       = "argo-cd"
+resource "helm_release" "argo_cd" {
+  name       = "argocd-release"
   namespace  = "eks-argocd"
   chart      = "argo-cd"
   repository = "https://argoproj.github.io/argo-helm"
