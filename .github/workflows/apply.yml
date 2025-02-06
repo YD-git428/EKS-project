@@ -4,9 +4,6 @@ on:
          workflows: ["Build and push docker image to ECR"]  
          types:
              - completed
-   
-
-
 
 jobs:
   deploy:
@@ -39,6 +36,11 @@ jobs:
       with:
           version: 'latest'
 
+    - name: Install tfsec & tflint
+      run: |
+           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+           curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
 
     - name: Terraform Init
       run: |
@@ -55,6 +57,16 @@ jobs:
         cd terraform
         terraform plan -refresh=true -input=false
       continue-on-error: false
+
+    - name: Run tflint #to ensure best practices are met
+      run: |
+        cd terraform
+        tflint
+
+    - name: Run tfsec #to ensure your IaC has optimum security
+      run: |
+       cd terraform
+       tfsec
 
     - name: Terraform Apply 
       run: |
@@ -83,3 +95,11 @@ jobs:
     
     - name: Apply argo-cd app
       run: kubectl apply -f terraform/argo-cd-application/apps-argo.yml
+
+    - name: Display Credentials to open Argo-CD
+      run: |
+       echo "Argo-CD Username is 'Admin'"
+       for ArgoPass in $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
+       do
+       echo "This is the Password to access your ArgoCD: $ArgoPass"
+       done
