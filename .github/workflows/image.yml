@@ -1,11 +1,14 @@
 name: Build and push docker image to ECR
 
-
 on:
- workflow_run:
-      workflows: ["Deploy EKS Infrastructure + Install Helm"]  
-      types:
-          - completed
+ workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type "yes" to confirm apply'
+        required: true
+        default: 'no'
+
+        
 jobs:
    build:
       runs-on: ubuntu-latest
