@@ -39,15 +39,11 @@ jobs:
 
       - name: Tag Docker image
         run: |
-          docker tag project_image_yd:latest ${{ secrets.AWS_ID }}/project_image_yd:latest
+          docker tag project_image_yd:latest ${{ secrets.AWS_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/project_image_yd:latest
 
       - name: Push Docker image to AWS ECR
         run: |
-          docker push ${{ secrets.AWS_ID }}/project_image_yd:latest
-        env:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          docker push ${{ secrets.AWS_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/project_image_yd:latest
 
 
 
