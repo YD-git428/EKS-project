@@ -34,7 +34,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          cd tm-app
+          cd ../EKS-tm-app
           docker build -t project_image_yd:latest .
 
       - name: Tag Docker image
