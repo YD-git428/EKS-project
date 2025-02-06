@@ -1,14 +1,14 @@
 module "cert_manager_irsa_role" {
   source    = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  role_name = "eks-cert-manager-role"
+  role_name = var.cert_manager_role_name
 
   attach_cert_manager_policy    = true
-  cert_manager_hosted_zone_arns = ["arn:aws:route53:::hostedzone/Z02736193B0NBZU8BTQQK"]
+  cert_manager_hosted_zone_arns = var.hosted_zone_arns
 
-  oidc_providers = {                                           
+  oidc_providers = {
     eks = {
       provider_arn               = var.oidc_provider_arn
-      namespace_service_accounts = ["eks-cert-manager:cert-manager"]
+      namespace_service_accounts = var.cert_namespace_service_accounts
     }
   }
 
@@ -27,13 +27,13 @@ module "external_dns_irsa_role" {
   oidc_providers = {
     eks = {
       provider_arn               = var.oidc_provider_arn
-      namespace_service_accounts = ["eks-external-dns:external-dns"]
+      namespace_service_accounts = var.external_dns_namespace_service_accounts
     }
   }
 
-  
+
 
   tags = {
-    name = "eks-external-dns"
+    name = var.external_dns_role_tag
   }
 }

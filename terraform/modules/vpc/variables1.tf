@@ -67,3 +67,27 @@ variable "security_group_tag" {
   type = string
 
 }
+
+variable "eks_eip1_name" {
+  type = string
+}
+
+variable "eks_eip2_name" {
+  type = string
+}
+
+variable "eks_eip3_name" {
+  type = string
+}
+
+variable "eks_nat_tag1" {
+  type = string
+}
+
+variable "eks_nat_tag2" {
+  type = string
+}
+
+variable "eks_nat_tag3" {
+  type = string
+}

@@ -36,4 +36,22 @@ variable "access_entry" {
   }))
 }
 
+variable "cluster_endpoint_cidrs" {
+  type = list(string)
+}
 
+variable "instance_types" {
+  type = list(string)
+}
+
+variable "ami_type" {
+  type = string
+}
+
+variable "managed_node_groups" {
+  type = map(object({
+    min_size     = number
+    max_size     = number
+    desired_size = number
+  }))
+}

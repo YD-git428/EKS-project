@@ -11,9 +11,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "eks-bucket2233"
-    key    = "terraform.tfstate"
-    region = "eu-west-2"
+    bucket  = "eks-bucket2233"
+    key     = "terraform.tfstate"
+    region  = "eu-west-2"
+    encrypt = true
   }
 }
 

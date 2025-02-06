@@ -60,6 +60,6 @@ resource "helm_release" "argo_cd" {
 
 
   values = [
-    file("helm-values/argocd.yml") 
+    file("helm-values/argocd.yml")
   ]
 }

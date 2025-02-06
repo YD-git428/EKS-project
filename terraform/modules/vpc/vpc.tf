@@ -179,21 +179,21 @@ resource "aws_route_table_association" "subnet-6" {
 resource "aws_eip" "nat-eip1" {
   domain = "vpc"
   tags = {
-    Name = "eks-nat-eip1"
+    Name = var.eks_eip1_name
   }
 }
 
 resource "aws_eip" "nat-eip2" {
   domain = "vpc"
   tags = {
-    Name = "eks-nat-eip2"
+    Name = var.eks_eip2_name
   }
 }
 
 resource "aws_eip" "nat-eip3" {
   domain = "vpc"
   tags = {
-    Name = "eks-nat-eip3"
+    Name = var.eks_eip3_name
   }
 }
 
@@ -202,7 +202,7 @@ resource "aws_nat_gateway" "eks_nat1" {
   subnet_id     = aws_subnet.eks_public_subnet1.id
 
   tags = {
-    Name = "nat-eks1"
+    Name = var.eks_nat_tag1
   }
   depends_on = [aws_internet_gateway.eks-igw]
 }
@@ -212,7 +212,7 @@ resource "aws_nat_gateway" "eks_nat2" {
   subnet_id     = aws_subnet.eks_public_subnet2.id
 
   tags = {
-    Name = "nat-eks2"
+    Name = var.eks_nat_tag2
   }
   depends_on = [aws_internet_gateway.eks-igw]
 }
@@ -222,7 +222,7 @@ resource "aws_nat_gateway" "eks_nat3" {
   subnet_id     = aws_subnet.eks_public_subnet3.id
 
   tags = {
-    Name = "nat-eks3"
+    Name = var.eks_nat_tag3
   }
   depends_on = [aws_internet_gateway.eks-igw]
 }
