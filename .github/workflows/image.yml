@@ -34,7 +34,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t project_image_yd:latest ${{ secrets.PATH }}
+          cd tm-app
+          docker build -t project_image_yd:latest .
 
       - name: Tag Docker image
         run: |
