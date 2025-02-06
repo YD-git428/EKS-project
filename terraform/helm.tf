@@ -24,7 +24,7 @@ resource "helm_release" "cert_manager" {
   }
 
   values = [
-    "${file("helm-values/cert-manager.yml")}"
+    file("helm-values/cert-manager.yml")
   ]
 
 }

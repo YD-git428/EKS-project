@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "./modules/vpc"
+  source = "./modules/vpc.tf"
 
   vpc_tag             = "eks-vpc"
   route_tablepriv_tag = "private-rtable"

@@ -10,6 +10,7 @@ terraform {
     }
   }
 
+
   backend "s3" {
     bucket  = "eks-bucket2233"
     key     = "terraform.tfstate"
