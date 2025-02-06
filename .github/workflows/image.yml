@@ -8,7 +8,7 @@ on:
         required: true
         default: 'no'
 
-        
+
 jobs:
    build:
       runs-on: ubuntu-latest
@@ -29,7 +29,7 @@ jobs:
 
       - name: Log in to AWS ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ID }}
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
         continue-on-error: false
 
       - name: Build Docker image
