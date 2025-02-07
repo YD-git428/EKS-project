@@ -27,24 +27,23 @@ jobs:
        continue-on-error: true
 
      - name: Uninstall all CRDs
-       working-directory: ./terraform
        run: |
          chmod +x cleanup.sh
          sh cleanup.sh
        continue-on-error: true
 
      - name: Terraform Init
-       working-directory: ./terraform
+       working-directory: terraform
        run: |
            terraform init
 
      - name: Terraform Plan
-       working-directory: ./terraform
+       working-directory: terraform
        run: |
          terraform plan -refresh=true -input=false
        continue-on-error: false
 
      - name: Terraform destroy
-       working-directory: ./terraform
+       working-directory: terraform
        run: |
          terraform destroy -auto-approve
