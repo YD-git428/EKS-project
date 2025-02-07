@@ -24,7 +24,8 @@ jobs:
 
      - name: Update kube config
        run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
-
+       continue-on-error: true
+       
      - name: Uninstall all CRDs
        run: |
          chmod +x cleanup.sh
