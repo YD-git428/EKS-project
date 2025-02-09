@@ -40,7 +40,7 @@ jobs:
       uses: terraform-linters/setup-tflint@v1
 
     - name: Set up tfsec
-      uses: aquasecurity/tfsec-action@v1
+      uses: aquasecurity/tfsec-action@v1.0.0
 
 
     - name: Terraform Init
