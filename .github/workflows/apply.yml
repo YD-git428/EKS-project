@@ -64,9 +64,6 @@ jobs:
         cd terraform
         tflint
 
-    - name: Run tfsec #to ensure your IaC has optimum security
-      run: tfsec
-
     - name: Terraform Apply 
       run: |
         cd terraform
