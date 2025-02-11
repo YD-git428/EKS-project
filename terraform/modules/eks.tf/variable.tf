@@ -55,3 +55,7 @@ variable "managed_node_groups" {
     desired_size = number
   }))
 }
+
+variable "cluster_version" {
+  type = string
+}

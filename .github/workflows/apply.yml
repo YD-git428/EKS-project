@@ -95,7 +95,7 @@ jobs:
     - name: Display Credentials to open Argo-CD
       run: |
        echo "Argo-CD Username is 'Admin'"
-       for ArgoPass in $(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
+       for ArgoPass in $(kubectl get secret -n eks-argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode)
        do
        echo "This is the Password to access your ArgoCD: $ArgoPass"
        done

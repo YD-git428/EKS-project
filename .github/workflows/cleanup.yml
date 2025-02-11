@@ -25,6 +25,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+     - name: Allow GitHub Actions IP in EKS
+       run: |
+             GITHUB_IP=$(curl -s https://checkip.amazonaws.com)
+             aws eks update-cluster-config --region ${{ secrets.AWS_REGION }} --name YoucefEKS-project \
+             --resources-vpc-config endpointPublicAccess=true,publicAccessCidrs=["$GITHUB_IP/32",${{ secrets.PUBLIC_IP_CIDR }}]
+
      - name: Update kube config
        run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name YoucefEKS-project
        continue-on-error: true

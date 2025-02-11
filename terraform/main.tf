@@ -69,6 +69,7 @@ module "eks_module" {
     }
   }
 
+cluster_version = "1.32"
 }
 
 

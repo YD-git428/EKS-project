@@ -3,8 +3,7 @@ module "eks" {
   version = "20.31.0"
 
   cluster_name    = var.cluster-name
-  cluster_version = "1.32"
-
+  cluster_version = var.cluster_version
 
   cluster_endpoint_private_access      = true
   cluster_endpoint_public_access_cidrs = var.cluster_endpoint_cidrs
@@ -42,6 +41,7 @@ module "eks" {
     create_iam_role        = false
     create_iam_role_policy = true
     cluster_name           = var.cluster-name
+    subnet_ids             = var.subnetids_private
   }
 
   eks_managed_node_groups = var.managed_node_groups
