@@ -2,11 +2,11 @@ provider: aws
 
 env: 
 - name: AWS_DEFAULT_REGION
-  value: eu-west-2
+  value: $REGION
 
 serviceAccount:
   annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::418295709007:role/eks-external-dns-role"
+    eks.amazonaws.com/role-arn: $EXT_DNS_IAM_ROLE
 
 domainFilters:
-- youcefderder.co.uk
+- youcefderder.co.uk #Insert your own domain

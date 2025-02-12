@@ -16,12 +16,12 @@ spec:
     spec:
       containers:
         - name: eks-app
-          image: 418295709007.dkr.ecr.eu-west-2.amazonaws.com/project_image_yd:latest
+          image: $ECR_IMAGE
           command: [ "yarn", "start" ]
           ports:
             - containerPort: 3000
       imagePullSecrets:
-         - name: ecr-registry-secret
+         - name: $ECR_REG_SECRET
 
 ---
 
@@ -64,4 +64,4 @@ spec:
   tls:
   - hosts:
     - eks-app.youcefderder.co.uk
-    secretName: eks-argo-secret
+    secretName: $TLS_SECRET

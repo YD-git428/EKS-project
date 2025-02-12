@@ -5,17 +5,17 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: remindersofspokenword@gmail.com
+    email: $EMAIL #Insert your email
     privateKeySecretRef:
       name: issuer
     solvers:
     - dns01:
         route53:
-          hostedZoneID: Z02736193B0NBZU8BTQQK
-          region: eu-west-2
+          hostedZoneID: $HOSTEDZONE_ID #Insert your Hosted Zone ID
+          region: $REGION #Insert your region
       selector:
         dnsZones: 
-        - "youcefderder.co.uk"
+        - "youcefderder.co.uk" #Insert your domain
     - http01:
         ingress:
           class: nginx

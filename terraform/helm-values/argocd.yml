@@ -12,12 +12,12 @@ server:
      nginx.org/hsts: "false"
      cert-manager.io/cluster-issuer: issuer
     hosts:
-    - argocd.youcefderder.co.uk
+    - argocd.youcefderder.co.uk #Add your own host
     tls:
-    - secretName: argocd-server-tls
+    - secretName: $SECRET - Add your own TLS Secret
       hosts:
-      - argocd.youcefderder.co.uk
+      - argocd.youcefderder.co.uk #Add your own host
 
 global:
-   domain: argocd.youcefderder.co.uk
+   domain: argocd.youcefderder.co.uk #Add your own host
 
