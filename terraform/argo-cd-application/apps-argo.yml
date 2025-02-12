@@ -5,9 +5,6 @@ metadata:
   namespace: eks-argocd  
   labels:
     name: apps
-  finalizers:
-    # Ensures resources (Pods, Services, etc.) are deleted first before the Application itself
-    - argocd.argoproj.io/resources-finalizer
 spec:
   project: default  
   source:

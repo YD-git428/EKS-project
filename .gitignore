@@ -6,3 +6,5 @@ terraform-ref/
 .terraform/
 terraform/errored.tfstate
 terraform.tfstate
+terraform/mainsecret.tf
+.env 

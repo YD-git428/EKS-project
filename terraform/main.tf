@@ -1,3 +1,5 @@
+#Note: Confidential details have been removed - You may add your own details in commented areas
+
 module "vpc" {
   source = "./modules/vpc.tf"
 
@@ -35,7 +37,7 @@ module "eks_module" {
   module.vpc.subnet6_id]
   iamrole_cluster        = module.iam.cluster_role
   iam_role_workernode    = module.iam.worker_role
-  cluster_endpoint_cidrs = ["188.30.140.0/24"]
+  cluster_endpoint_cidrs = [] #Personal Endpoint CIDR for Optimised Security
 
   ami_type       = "AL2023_x86_64_STANDARD"
   instance_types = ["t3.medium"]
@@ -50,7 +52,7 @@ module "eks_module" {
   access_entry = {
     access_entry = {
       cluster_name  = "YoucefEKS-project"
-      principal_arn = "arn:aws:iam::418295709007:user/youcef_admin"
+      principal_arn = ""#Your personal User ARN 
       type          = "STANDARD"
       policy_associations = {
         policy_1 = {
@@ -69,7 +71,7 @@ module "eks_module" {
     }
   }
 
-cluster_version = "1.32"
+cluster_version = "1.32" #Add the latest cluster version
 }
 
 
@@ -86,7 +88,7 @@ module "iam" {
 module "irsa" {
   source                                  = "./modules/irsa.tf"
   oidc_provider_arn                       = module.eks_module.eks_oidc_provider_arn
-  hosted_zone_arns                        = ["arn:aws:route53:::hostedzone/Z02736193B0NBZU8BTQQK"]
+  hosted_zone_arns                        = [] #Add personal hosted zones ARN
   cert_manager_role_name                  = "eks-cert-manager-role"
   external_dns_role_name                  = "external_dns_irsa_role"
   cert_manager_role_tag                   = "eks-cert-manager"
