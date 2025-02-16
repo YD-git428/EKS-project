@@ -16,9 +16,6 @@ To deploy my project run
 
 Feel free to edit your own credentials into the commented out sections within the main.tf file 
 
-```bash
-  cd main.tf
-```
 You can also configure your own Kubernetes manifest files within the apps folder (Where ArgoCD will detect the application that'll be hosted)
 
 ```bash
