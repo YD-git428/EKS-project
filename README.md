@@ -74,6 +74,7 @@ npm config rm proxy
 
 - I constructed a VPC with 6 subnets - 3 public and 3 private 
 - A Route table, where I specified the route to my Internet Gateway from public subnets as well as the path to my NAT Gateway (situated in my public subnets) from my private subnets to have secure internet access.
+- Route53
 - IAM Policy and Role definitions for my Cluster and worker nodes 
 
 ---
